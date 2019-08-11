@@ -1,40 +1,56 @@
 
 /**
- * Opens a ".window".
- * 1. Lowers all other windows' zIndex
- * 2. Collapse every window
- * 3. Un-collapse window (raise zIndex and remove .collapsed)
- * @param {Node} window The first number.
+ * Add a css rule to the
+ * @param {string} ruleText The rule to add.
  */
-function openWindow(window) {
+function insertStyleSheetRule(ruleText) {
+  const sheets = document.styleSheets;
+  const sheet = sheets[sheets.length - 1];
+  sheet.insertRule(
+      ruleText,
+      sheet.hasOwnProperty('rules') ? sheet.rules.length : sheet.cssRules.length
+  );
+}
+
+/**
+ * Open a window from (x, y)
+ * @param {Node} window The window to open.
+ * @param {number} x
+ * @param {number} y
+ */
+function openWindow(window, x, y) {
   const windows = document.querySelectorAll('.window');
-  windows.forEach((w) => {
-    w.style.zIndex -= 1;
+  windows.forEach((window) => {
+    window.style.zIndex -= 1;
+  });
+  window.style.zIndex = windows.length;
+  window.classList.add('open');
+  window.addEventListener('animationend', (e) => {
+    window.classList.remove('open');
   });
 
-  window.classList.add('notransition');
-  window.classList.add('collapsed');
-
-  setTimeout(() => {
-    window.classList.remove('notransition');
-    window.style.zIndex = windows.length + 1;
-    window.classList.remove('collapsed');
-  }, 10);
+  // Set the animation coordinates
+  insertStyleSheetRule(`
+  @keyframes open {
+    0% {
+        -webkit-clip-path: circle(0% at ${x}px ${y}px); 
+    } 
+    100% { 
+        -webkit-clip-path: circle(150% at ${x}px ${y}px); 
+    } 
+  }`);
+//   insertStyleSheetRule(`
+    
+//   `);
 }
 
 window.onload = function() {
-  const windows = document.querySelectorAll('.window');
   let i = 0;
-  openWindow(windows[i]);
-  document.body.addEventListener('click', (e) => {
-    e.stopImmediatePropagation();
-    e.stopPropagation();
-    if (e.type === 'touchstart') {
-      e = e.touches[0];
-    }
-    document.body.style.setProperty('--mouse-x', e.clientX + 'px');
+  document.addEventListener('click', (e) => {
     document.body.style.setProperty('--mouse-y', e.clientY + 'px');
+    document.body.style.setProperty('--mouse-x', e.clientX + 'px');
+    const windows = document.querySelectorAll('.window');
+    openWindow(windows[i], e.clientX, e.clientY);
     i = (i + 1) % windows.length;
-    openWindow(windows[i]);
   }, false);
 };

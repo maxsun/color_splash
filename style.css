@@ -1,55 +1,35 @@
 body {
-    margin: 0;
-    padding: 0;
-    --mouse-x: 0px;
-    --mouse-y: 0px;
+    text-align: center;
+    margin: 30px auto;
+    --mouse-x: 10px;
+    --mouse-y: 320px;
 }
 
 #w1 {
     background-color: lightblue;
     color: white;
+    background-color: #add8e6;
 }
-
 #w2 {
     background-color: white;
     color: lightblue;
 }
 
-#w3 {
-    background-color: lightcoral;
-    color: white;
-}
-
-#w4 {
-    background-color: white;
-    color: lightcoral;
-}
-
 .window {
     position: absolute;
-    background-color: white;
+    top: 0;
+    left: 0;
+    font-size: 64px;
     height: 100%;
     width: 100%;
-    transition: clip-path 1.5s;
-    clip-path: circle(150% at var(--mouse-x) var(--mouse-y));
-    will-change: clip-path;
+}
+.window.open { 
+    animation: open 0.75s cubic-bezier(0.5,0,0.5,1); 
 }
 
-.window.collapsed {
-    clip-path: circle(0% at var(--mouse-x) var(--mouse-y));
-}
-
-.centeredText {
-    position: absolute;
+.centeredContent {
+    position: relative;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 64px;
 }
-
-.notransition {
-    -webkit-transition: none !important;
-    -moz-transition: none !important;
-    -o-transition: none !important;
-    transition: none !important;
-  }
