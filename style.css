@@ -3,6 +3,7 @@ body {
     margin: 30px auto;
     --mouse-x: 10px;
     --mouse-y: 320px;
+    touch-action: none;
 }
 
 #w1 {
@@ -33,3 +34,21 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+.cloud {
+    fill: white;
+    stroke: white;
+    width: 100px;
+    position: absolute;
+    animation: moveCloud 20s linear infinite;
+    left: -100px;
+}
+
+@keyframes moveCloud {
+    0% {
+        left: -50px;
+    } 
+    100% { 
+        left: calc(100% + 50px);
+    } 
+  }

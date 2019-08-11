@@ -33,24 +33,28 @@ function openWindow(window, x, y) {
   insertStyleSheetRule(`
   @keyframes open {
     0% {
-        -webkit-clip-path: circle(0% at ${x}px ${y}px); 
+        -webkit-clip-path: circle(0% at ${x}px ${y}px);
+        clip-path: circle(0% at ${x}px ${y}px); 
     } 
     100% { 
         -webkit-clip-path: circle(150% at ${x}px ${y}px); 
+        clip-path: circle(150% at ${x}px ${y}px); 
     } 
   }`);
-//   insertStyleSheetRule(`
-    
-//   `);
 }
 
 window.onload = function() {
   let i = 0;
-  document.addEventListener('click', (e) => {
+  const onclick = (e) => {
+    e.preventDefault();
+    // e.stopPropogation();
+    // e.stopImediatePropogation();
     document.body.style.setProperty('--mouse-y', e.clientY + 'px');
     document.body.style.setProperty('--mouse-x', e.clientX + 'px');
     const windows = document.querySelectorAll('.window');
     openWindow(windows[i], e.clientX, e.clientY);
     i = (i + 1) % windows.length;
-  }, false);
+  };
+  document.body.addEventListener('click', onclick, false);
+  // document.addEventListener('touchstart', onclick, { passive: false });
 };
