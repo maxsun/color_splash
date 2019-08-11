@@ -26,12 +26,15 @@ window.onload = function() {
   const windows = document.querySelectorAll('.window');
   let i = 0;
   openWindow(windows[i]);
-  const onclick = (e) => {
+  document.body.addEventListener('click', (e) => {
+    e.stopImmediatePropagation();
+    e.stopPropagation();
+    if (e.type === 'touchstart') {
+      e = e.touches[0];
+    }
     document.body.style.setProperty('--mouse-x', e.clientX + 'px');
     document.body.style.setProperty('--mouse-y', e.clientY + 'px');
     i = (i + 1) % windows.length;
     openWindow(windows[i]);
-  };
-  document.body.addEventListener('click', onclick);
-  document.body.addEventListener('touchstart', onclick);
+  }, false);
 };
