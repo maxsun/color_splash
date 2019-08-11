@@ -26,10 +26,12 @@ window.onload = function() {
   const windows = document.querySelectorAll('.window');
   let i = 0;
   openWindow(windows[i]);
-  document.body.onclick = function(e) {
+  const onclick = (e) => {
     document.body.style.setProperty('--mouse-x', e.clientX + 'px');
     document.body.style.setProperty('--mouse-y', e.clientY + 'px');
     i = (i + 1) % windows.length;
     openWindow(windows[i]);
   };
+  document.body.addEventListener('click', onclick);
+  document.body.addEventListener('touchstart', onclick);
 };
