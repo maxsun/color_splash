@@ -47,14 +47,12 @@ window.onload = function() {
   let i = 0;
   const onclick = (e) => {
     e.preventDefault();
-    // e.stopPropogation();
-    // e.stopImediatePropogation();
     document.body.style.setProperty('--mouse-y', e.clientY + 'px');
     document.body.style.setProperty('--mouse-x', e.clientX + 'px');
     const windows = document.querySelectorAll('.window');
     openWindow(windows[i], e.clientX, e.clientY);
     i = (i + 1) % windows.length;
   };
+  document.body.addEventListener('touchstart', onclick, false );
   document.body.addEventListener('click', onclick, false);
-  // document.addEventListener('touchstart', onclick, { passive: false });
 };
