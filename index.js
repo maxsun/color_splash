@@ -46,7 +46,11 @@ function openWindow(window, x, y) {
 window.onload = function() {
   let i = 0;
   const onclick = (e) => {
+    console.log(e);
     e.preventDefault();
+    if (e.type === 'touchstart') {
+      e = e.touches[0];
+    }
     document.body.style.setProperty('--mouse-y', e.clientY + 'px');
     document.body.style.setProperty('--mouse-x', e.clientX + 'px');
     const windows = document.querySelectorAll('.window');
