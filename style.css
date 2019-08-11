@@ -1,0 +1,55 @@
+body {
+    margin: 0;
+    padding: 0;
+    --mouse-x: 0px;
+    --mouse-y: 0px;
+}
+
+#w1 {
+    background-color: lightblue;
+    color: white;
+}
+
+#w2 {
+    background-color: white;
+    color: lightblue;
+}
+
+#w3 {
+    background-color: lightcoral;
+    color: white;
+}
+
+#w4 {
+    background-color: white;
+    color: lightcoral;
+}
+
+.window {
+    position: absolute;
+    background-color: white;
+    height: 100%;
+    width: 100%;
+    transition: clip-path 1.5s;
+    clip-path: circle(150% at var(--mouse-x) var(--mouse-y));
+    will-change: clip-path;
+}
+
+.window.collapsed {
+    clip-path: circle(0% at var(--mouse-x) var(--mouse-y));
+}
+
+.centeredText {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 64px;
+}
+
+.notransition {
+    -webkit-transition: none !important;
+    -moz-transition: none !important;
+    -o-transition: none !important;
+    transition: none !important;
+  }
